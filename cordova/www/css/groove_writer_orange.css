@@ -283,7 +283,7 @@
 	.line-labels {
 		display: inline-block;
 		vertical-align: top;
-		width: 80px;
+		width: 110px;
 		font-size: 20px;
 		display: table-cell;
 	}
@@ -321,7 +321,7 @@
 	.stickings-label:hover {
 		color: #f7f1cf;
 	}
-	.hh-label:hover, .snare-label:hover, .kick-label:hover {
+	.hh-label:hover, .snare-label:hover, .kick-label:hover, .tom-label {
 		color: #2484C0;
 	}
 	.music-line-container {
@@ -396,6 +396,30 @@
 	}
 	.staff-line-5{
 		position: absolute; top: 163px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-6{
+		position: absolute; top: 192px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-7{
+		position: absolute; top: 223px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-8{
+		position: absolute; top: 253px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-9{
+		position: absolute; top: 283px;
 		width:100%;
 		height:0px;
 		border-top:3px solid #cacaca;
@@ -612,7 +636,7 @@
 		cursor: pointer;
 		font-size: 40px;
 		padding-top: 2px;
-		margin-top: 73px;
+		margin-top: 92px;
 	}
 
 	.closeMeasureButton {

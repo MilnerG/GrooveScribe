@@ -154,7 +154,11 @@ if (typeof(GrooveDisplay) === "undefined") {
 			myGrooveData.snare_array = myGrooveUtils.noteArraysFromURLData("S", combinedSnareTab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
 			myGrooveData.kick_array = myGrooveUtils.noteArraysFromURLData("K", combinedKickTab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
 			if(GrooveDBTabIn.tom1Tab !== undefined) myGrooveData.toms_array[0] = myGrooveUtils.noteArraysFromURLData("T1", GrooveDBTabIn.tom1Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
-			if(GrooveDBTabIn.tom4Tab !== undefined) myGrooveData.toms_array[3] = myGrooveUtils.noteArraysFromURLData("T4", GrooveDBTabIn.tom4Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
+			if(GrooveDBTabIn.tom2Tab !== undefined) myGrooveData.toms_array[1] = myGrooveUtils.noteArraysFromURLData("T2", GrooveDBTabIn.tom2Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
+			if(GrooveDBTabIn.tom3Tab !== undefined) myGrooveData.toms_array[2] = myGrooveUtils.noteArraysFromURLData("T3", GrooveDBTabIn.tom2Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
+			if(GrooveDBTabIn.tom4Tab !== undefined) myGrooveData.toms_array[3] = myGrooveUtils.noteArraysFromURLData("T4", GrooveDBTabIn.tom2Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
+			if(GrooveDBTabIn.tom5Tab !== undefined) myGrooveData.toms_array[4] = myGrooveUtils.noteArraysFromURLData("T5", GrooveDBTabIn.tom5Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
+			if(GrooveDBTabIn.tom6Tab !== undefined) myGrooveData.toms_array[5] = myGrooveUtils.noteArraysFromURLData("T6", GrooveDBTabIn.tom6Tab, GrooveDBTabIn.notesPerTabMeasure, GrooveDBTabIn.measures);
 
 			if(GrooveDBTabIn.timeSignature !== undefined) {
 				var timeSig = parseTimeSignature(GrooveDBTabIn.timeSignature);

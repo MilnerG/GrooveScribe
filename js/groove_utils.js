@@ -61,11 +61,13 @@ var constant_ABC_SN_Drag = "{/cc}c";
 var constant_ABC_KI_SandK = "[F^d,]"; // kick & splash
 var constant_ABC_KI_Splash = "^d,"; // splash only
 var constant_ABC_KI_Normal = "F";
-var constant_ABC_T1_Normal = "e";
-var constant_ABC_T2_Normal = "d";
-var constant_ABC_T3_Normal = "B";
-var constant_ABC_T4_Normal = "A";
-var constant_NUMBER_OF_TOMS = 4;
+var constant_ABC_T1_Normal = "f"; // ABC only officially supports 4 toms (f, e, d & A) while midi supports 6 toms (41/F1 Low Floor Tom, 43/G1 High Floor Tom, 45/A1 Low Tom, 47/B1 Low-Mid Tom, 48/C2 Hi Mid Tom, 50/D2 High Tom).
+var constant_ABC_T2_Normal = "e";
+var constant_ABC_T3_Normal = "d";
+var constant_ABC_T4_Normal = "B";
+var constant_ABC_T5_Normal = "A";
+var constant_ABC_T6_Normal = "G";
+var constant_NUMBER_OF_TOMS = 6;
 var constant_ABC_OFF = false;
 
 var constant_OUR_MIDI_VELOCITY_NORMAL = 85;
@@ -92,10 +94,12 @@ var constant_OUR_MIDI_SNARE_BUZZ = 104;
 var constant_OUR_MIDI_SNARE_FLAM = 107;
 var constant_OUR_MIDI_SNARE_DRAG = 103;
 var constant_OUR_MIDI_KICK_NORMAL = 35;
-var constant_OUR_MIDI_TOM1_NORMAL = 48;
-var constant_OUR_MIDI_TOM2_NORMAL = 47;
-var constant_OUR_MIDI_TOM3_NORMAL = 45;
-var constant_OUR_MIDI_TOM4_NORMAL = 43;
+var constant_OUR_MIDI_TOM1_NORMAL = 50; // Not used
+var constant_OUR_MIDI_TOM2_NORMAL = 48;
+var constant_OUR_MIDI_TOM3_NORMAL = 47;
+var constant_OUR_MIDI_TOM4_NORMAL = 45;
+var constant_OUR_MIDI_TOM5_NORMAL = 43;
+var constant_OUR_MIDI_TOM6_NORMAL = 41; // Not used
 
 // make these global so that they are shared among all the GrooveUtils classes invoked
 var global_current_midi_start_time = 0;
@@ -159,8 +163,8 @@ function GrooveUtils() {
 		this.hh_array = class_empty_note_array.slice(0);    // copy by value
 		this.snare_array = class_empty_note_array.slice(0); // copy by value
 		this.kick_array = class_empty_note_array.slice(0);  // copy by value
-		// toms_array contains 4 toms  T1, T2, T3, T4 index starting at zero
-		this.toms_array = [class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0)];
+		// toms_array contains 6 toms  T1, T2, T3, T4, T5, T6 index starting at zero
+		this.toms_array = [class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0), class_empty_note_array.slice(0)];
 		this.showToms = false;
 		this.showStickings = false;
 		this.title = "";
@@ -440,7 +444,27 @@ function GrooveUtils() {
 		return root.GetEmptyGroove(notes_per_measure, numMeasures);
 	};
 
+	root.GetDefaultTom2Groove = function (notes_per_measure, timeSigTop, timeSigBottom, numMeasures) {
+
+		return root.GetEmptyGroove(notes_per_measure, numMeasures);
+	};
+
+	root.GetDefaultTom3Groove = function (notes_per_measure, timeSigTop, timeSigBottom, numMeasures) {
+
+		return root.GetEmptyGroove(notes_per_measure, numMeasures);
+	};
+
 	root.GetDefaultTom4Groove = function (notes_per_measure, timeSigTop, timeSigBottom, numMeasures) {
+
+		return root.GetEmptyGroove(notes_per_measure, numMeasures);
+	};
+
+	root.GetDefaultTom5Groove = function (notes_per_measure, timeSigTop, timeSigBottom, numMeasures) {
+
+		return root.GetEmptyGroove(notes_per_measure, numMeasures);
+	};
+
+	root.GetDefaultTom6Groove = function (notes_per_measure, timeSigTop, timeSigBottom, numMeasures) {
 
 		return root.GetEmptyGroove(notes_per_measure, numMeasures);
 	};
@@ -610,16 +634,16 @@ function GrooveUtils() {
 				//break;
 			case "T1":
 				return constant_ABC_T1_Normal;
-				//break;
 			case "T2":
 				return constant_ABC_T2_Normal;
-				//break;
 			case "T3":
 				return constant_ABC_T3_Normal;
-				//break;
 			case "T4":
 				return constant_ABC_T4_Normal;
-				//break;
+			case "T5":
+				return constant_ABC_T5_Normal;
+			case "T6":
+				return constant_ABC_T6_Normal;
 			default:
 				break;
 			}
@@ -655,10 +679,16 @@ function GrooveUtils() {
 				//break;
 			case "T1":
 				return constant_ABC_T1_Normal;
-				//break;
+			case "T2":
+				return constant_ABC_T2_Normal;
+			case "T3":
+				return constant_ABC_T3_Normal;
 			case "T4":
 				return constant_ABC_T4_Normal;
-				//break;
+			case "T5":
+				return constant_ABC_T5_Normal;
+			case "T6":
+				return constant_ABC_T6_Normal;
 			default:
 				break;
 			}
@@ -757,6 +787,8 @@ function GrooveUtils() {
 		case constant_ABC_T2_Normal:
 		case constant_ABC_T3_Normal:
 		case constant_ABC_T4_Normal:
+		case constant_ABC_T5_Normal:
+		case constant_ABC_T6_Normal:
 			tabChar = "o";
 			break;
 		case constant_ABC_SN_Flam:
@@ -981,18 +1013,27 @@ function GrooveUtils() {
 			}
 		}
 
+		// Temporary workaround for backwards compatibility
+		var hasTom1 = false;
 		// Get the Toms
-		for(i=0; i < 4; i++) {
-			// toms are named T1, T2, T3, T4
+		for(i=0; i < constant_NUMBER_OF_TOMS; i++) {
+			// toms are named T1, T2, T3, T4, T5, T6
 			var Tom_string = root.getQueryVariableFromString("T" + (i+1), false, encodedURLData);
 			if (!Tom_string) {
 				Tom_string = root.GetDefaultTomGroove(myGrooveData.notesPerMeasure, myGrooveData.numBeats, myGrooveData.noteValue, myGrooveData.numberOfMeasures);
 			} else {
+				if (i == 0) {
+					hasTom1 = true;
+				}
 				myGrooveData.showToms = true;
 			}
 
 			/// the toms array index starts at zero (0) the first one is T1
 			myGrooveData.toms_array[i] = root.noteArraysFromURLData("T" + (i+1), Tom_string, myGrooveData.notesPerMeasure, myGrooveData.numberOfMeasures);
+		}
+		if (hasTom1) {
+			// move toms by 1
+			myGrooveData.toms_array.unshift(myGrooveData.toms_array.pop());
 		}
 
 		myGrooveData.sticking_array = root.noteArraysFromURLData("Stickings", Stickings_string, myGrooveData.notesPerMeasure, myGrooveData.numberOfMeasures);
@@ -1094,9 +1135,13 @@ function GrooveUtils() {
 
 		// only add if we need them.  // they are long and ugly. :)
 		if (myGrooveData.showToms) {
-			var Tom1 = "&T1=|" + root.tabLineFromAbcNoteArray('T1', myGrooveData.toms_array[0], true, true, total_notes, myGrooveData.notesPerMeasure);
+			// var Tom1 = "&T1=|" + root.tabLineFromAbcNoteArray('T1', myGrooveData.toms_array[0], true, true, total_notes, myGrooveData.notesPerMeasure);
+			var Tom2 = "&T2=|" + root.tabLineFromAbcNoteArray('T2', myGrooveData.toms_array[1], true, true, total_notes, myGrooveData.notesPerMeasure);
+			var Tom3 = "&T3=|" + root.tabLineFromAbcNoteArray('T3', myGrooveData.toms_array[2], true, true, total_notes, myGrooveData.notesPerMeasure);
 			var Tom4 = "&T4=|" + root.tabLineFromAbcNoteArray('T4', myGrooveData.toms_array[3], true, true, total_notes, myGrooveData.notesPerMeasure);
-			fullURL += Tom1 + Tom4;
+			var Tom5 = "&T5=|" + root.tabLineFromAbcNoteArray('T5', myGrooveData.toms_array[4], true, true, total_notes, myGrooveData.notesPerMeasure);
+			// var Tom6 = "&T6=|" + root.tabLineFromAbcNoteArray('T6', myGrooveData.toms_array[5], true, true, total_notes, myGrooveData.notesPerMeasure);
+			fullURL += Tom2 + Tom3 + Tom4 + Tom5;
 		}
 
 		// only add if we need them.  // they are long and ugly. :)
@@ -1223,14 +1268,16 @@ function GrooveUtils() {
 
 		if (showLegend) {
 			fullABC += 'V:Stickings\n' +
-			'x8 x8 x8 x8 x8 x8 x8 x8 ||\n' +
+			'x8 x8 x8 x8 x8 x8 x8 x8 x8 ||\n' +
 			'V:Hands stem=up \n' +
 			'%%voicemap drum\n' +
 			'"^Hi-Hat"^g4 "^Open"!open!^g4 ' +
-			'"^Crash"^c\'4 "^Stacker"^d\'4 "^Ride"^A\'4 "^Ride Bell"^B\'4 x2 "^Tom"e4 "^Tom"A4 "^Snare"c4 "^Buzz"!///!c4 "^Cross"^c4 "^Ghost  "!(.!!).!c4 "^Flam"{/c}c4  x10 ||\n' +
+			'"^Crash"^c\'4 "^Stacker"^d\'4 "^Ride"^A\'4 "^Ride Bell"^B\'4 x2 ' +
+			'"^Tom"f4 "^Tom"e4 "^Tom"d4 "^Tom"A4 ' +
+			'"^Snare"c4 "^Buzz"!///!c4 "^Cross"^c4 "^Ghost"!(.!!).!c4 "^Flam"{/c}c4 x10 ||\n' +
 			'V:Feet stem=down \n' +
 			'%%voicemap drum\n' +
-			'x52 "^Kick"F4 "^HH foot"^d,4 x4 ||\n' +
+			'x62 "^Kick"F4 "^HH foot"^d,4 x2 ||\n' +
 			'T:\n';
 		}
 
@@ -2154,7 +2201,7 @@ function GrooveUtils() {
 	root.renderABCtoSVG = function (abc_source) {
 		root.abc_obj = new Abc(abcToSVGCallback);
 		if ((root.myGrooveData && root.myGrooveData.showLegend) || root.isLegendVisable)
-			root.abcNoteNumIndex = -15; // subtract out the legend notes for a proper index.
+			root.abcNoteNumIndex = -17; // subtract out the legend notes for a proper index.
 		else
 			root.abcNoteNumIndex = 0;
 		abcToSVGCallback.abc_svg_output = ''; // clear
@@ -2693,22 +2740,22 @@ function GrooveUtils() {
 						var tom_note = false;
 						if(Toms_Array[which_array][i] !== undefined) {
 							switch (Toms_Array[which_array][i]) {
-							case constant_ABC_T1_Normal: // Tom 1
-								tom_note = constant_OUR_MIDI_TOM1_NORMAL;  // midi code High tom 2
+							case constant_ABC_T2_Normal: // Hi Mid Tom
+								tom_note = constant_OUR_MIDI_TOM2_NORMAL;  // midi code High Mid Tom
 								break;
-							case constant_ABC_T2_Normal: // Midi code Mid tom 1
-								tom_note = constant_OUR_MIDI_TOM2_NORMAL;
-								break;
-							case constant_ABC_T3_Normal: // Midi code Mid tom 2
+							case constant_ABC_T3_Normal: // Midi code Low Mid Tom
 								tom_note = constant_OUR_MIDI_TOM3_NORMAL;
 								break;
-							case constant_ABC_T4_Normal: // Midi code Low Tom 1
+							case constant_ABC_T4_Normal: // Midi code Low Tom
 								tom_note = constant_OUR_MIDI_TOM4_NORMAL;
+								break;
+							case constant_ABC_T5_Normal: // Midi code High Floor Tom
+								tom_note = constant_OUR_MIDI_TOM5_NORMAL;
 								break;
 							case false:
 								break;
 							default:
-								console.log("Bad case in GrooveUtils.MIDI_from_HH_Snare_Kick_Arrays");
+								console.log("Bad case in GrooveUtils.MIDI_from_HH_Snare_Kick_Arrays (" + Toms_Array[which_array][i] + ")");
 								break;
 							}
 						}
@@ -3000,7 +3047,7 @@ function GrooveUtils() {
 				note_type = "snare";
 			} else if (data.note == constant_OUR_MIDI_KICK_NORMAL || data.note == constant_OUR_MIDI_HIHAT_FOOT) {
 				note_type = "kick";
-			} else if (data.note == constant_OUR_MIDI_TOM1_NORMAL || data.note == constant_OUR_MIDI_TOM2_NORMAL || data.note == constant_OUR_MIDI_TOM3_NORMAL || data.note == constant_OUR_MIDI_TOM4_NORMAL) {
+			} else if (data.note == constant_OUR_MIDI_TOM1_NORMAL || data.note == constant_OUR_MIDI_TOM2_NORMAL || data.note == constant_OUR_MIDI_TOM3_NORMAL || data.note == constant_OUR_MIDI_TOM4_NORMAL || data.note == constant_OUR_MIDI_TOM5_NORMAL || data.note == constant_OUR_MIDI_TOM6_NORMAL) {
 				note_type = "tom";
 			}
 			if (note_type) {

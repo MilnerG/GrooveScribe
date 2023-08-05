@@ -299,7 +299,7 @@
 	.line-labels {
 		display: inline-block;
 		vertical-align: top;
-		width: 80px;
+		width: 110px;
 		font-size: 20px;
 		display: table-cell;
 	}
@@ -331,6 +331,24 @@
 		text-align: center;
 		visibility: hidden;
 	}
+	#tom2-label {
+		display: block;
+		white-space:nowrap;
+		margin-top: 5px;
+		margin-left: 8px;
+		cursor: pointer;
+		text-align: center;
+		visibility: hidden;
+	}
+	#tom3-label {
+		display: block;
+		white-space:nowrap;
+		margin-top: 5px;
+		margin-left: 8px;
+		cursor: pointer;
+		text-align: center;
+		visibility: hidden;
+	}
 	.snare-label {
 		margin-top: 5px;
 		margin-left: 8px;
@@ -338,6 +356,24 @@
 		text-align: center;
 	}
 	#tom4-label {
+		display: block;
+		white-space:nowrap;
+		margin-top: 5px;
+		margin-left: 8px;
+		cursor: pointer;
+		text-align: center;
+		visibility: hidden;
+	}
+	#tom5-label {
+		display: block;
+		white-space:nowrap;
+		margin-top: 5px;
+		margin-left: 8px;
+		cursor: pointer;
+		text-align: center;
+		visibility: hidden;
+	}
+	#tom6-label {
 		display: block;
 		white-space:nowrap;
 		margin-top: 5px;
@@ -355,7 +391,7 @@
 	.stickings-label:hover {
 		color: var(--highlight-color);
 	}
-	.hh-label:hover, .snare-label:hover, .kick-label:hover {
+	.hh-label:hover, .snare-label:hover, .kick-label:hover, .tom-label:hover {
 		color: var(--highlight-color);
 	}
 	.music-line-container {
@@ -403,6 +439,24 @@
 		-ms-user-select: none;
 		visibility: hidden;
 	}
+	#tom2-container {
+		height: 28px;
+		white-space:nowrap;
+		border: 1px solid transparent;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		visibility: hidden;
+	}
+	#tom3-container {
+		height: 28px;
+		white-space:nowrap;
+		border: 1px solid transparent;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		visibility: hidden;
+	}
 	.snare-container {
 		border: 1px solid transparent;
 		height: 28px;
@@ -412,6 +466,24 @@
 		-ms-user-select: none;
 	}
 	#tom4-container {
+		height: 28px;
+		white-space:nowrap;
+		border: 1px solid transparent;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		visibility: hidden;
+	}
+	#tom5-container {
+		height: 28px;
+		white-space:nowrap;
+		border: 1px solid transparent;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		visibility: hidden;
+	}
+	#tom6-container {
 		height: 28px;
 		white-space:nowrap;
 		border: 1px solid transparent;
@@ -458,6 +530,30 @@
 		height:0px;
 		border-top:3px solid #cacaca;
 	}
+	.staff-line-6{
+		position: absolute; top: 192px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-7{
+		position: absolute; top: 223px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-8{
+		position: absolute; top: 253px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
+	.staff-line-9{
+		position: absolute; top: 283px;
+		width:100%;
+		height:0px;
+		border-top:3px solid #cacaca;
+	}
 	.sticking {
 		display: inline-block;
 		position: relative;
@@ -472,7 +568,7 @@
 	.bg-highlight {
 		display: inline-block;
 		width: 35px;
-		height: 192px;
+		height: 252px;
 	}
 	.hi-hat {
 		display: inline-block;
@@ -605,7 +701,7 @@
 		color: transparent;
 		float:left;
 	}
-	.unmuteHHButton, .unmuteSnareButton, .unmuteKickButton, .unmuteTom1Button, .unmuteTom4Button {
+	.unmuteHHButton, .unmuteSnareButton, .unmuteKickButton, .unmuteTom1Button, .unmuteTom2Button, .unmuteTom3Button, .unmuteTom4Button, .unmuteTom5Button, .unmuteTom6Button {
 		display: inline-block;
 		display: none;
 		position: relative;
@@ -618,7 +714,7 @@
 		margin-left: 2px;
 		cursor: pointer;
 	}
-	.unmuteHHButton:hover, .unmuteSnareButton:hover, .unmuteKickButton:hover, .unmuteTom1Button:hover, .unmuteTom4Button:hover {
+	.unmuteHHButton:hover, .unmuteSnareButton:hover, .unmuteKickButton:hover, .unmuteTom1Button:hover, .unmuteTom2Button:hover, .unmuteTom3Button:hover, .unmuteTom4Button:hover, .unmuteTom5Button:hover, .unmuteTom6Button:hover {
 		opacity: .6;
 	}
 	.unmuteHHStack {
@@ -733,7 +829,7 @@
 		cursor: pointer;
 		font-size: 40px;
 		padding-top: 2px;
-		margin-top: 73px;
+		margin-top: 92px;
 	}
 
 	.closeMeasureButton {

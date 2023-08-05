@@ -223,7 +223,7 @@
 	.line-labels {
 		display: inline-block;
 		vertical-align: top;
-		width: 80px;
+		width: 110px;
 		font-size: 20px;
 		display: table-cell;
 	}
@@ -261,7 +261,7 @@
 	.stickings-label:hover {
 		color: #000;
 	}
-	.hh-label:hover, .snare-label:hover, .kick-label:hover {
+	.hh-label:hover, .snare-label:hover, .kick-label:hover, .tom-label {
 		color: #2484C0;
 	}
 	.music-line-container {
@@ -515,7 +515,7 @@
 		cursor: pointer;
 		font-size: 40px;
 		padding-top: 2px;
-		margin-top: 73px;
+		margin-top: 92px;
 	}
 
 	.closeMeasureButton {
